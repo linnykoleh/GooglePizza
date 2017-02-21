@@ -1,0 +1,2 @@
+String String = "oleg";
+String = String.replace(1, 2);
