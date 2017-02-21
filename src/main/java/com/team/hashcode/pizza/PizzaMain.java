@@ -2,6 +2,7 @@ package com.team.hashcode.pizza;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PizzaMain {
@@ -13,13 +14,19 @@ public class PizzaMain {
 	private static int minEachIngredient;
 	private static int maxCellsPerSlice;
 
+	private static int tomato;
+	private static int mushroom;
 	private static int numberOfSlices;
+	private static char[][] matrix;
 
 	public static void main(String[] args) throws Exception {
-		final List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("small.in").toURI()));
+		List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("small.in").toURI()));
 		parseParams(strings.get(NUMBER_PARAM_LINE));
-		defineNumberOfSlices(strings);
-
+		defineNumberOfTomatoAndMushrooms(strings);
+		defineNumberOfSlices();
+		strings = strings.subList(1, strings.size());
+		createMatrix(strings);
+		cutPizza();
 	}
 
 	private static void parseParams(String firstLine){
@@ -34,9 +41,7 @@ public class PizzaMain {
 		}
 	}
 
-	private static void defineNumberOfSlices(final List<String> strings){
-		int tomato = 0;
-		int mushroom = 0;
+	private static void defineNumberOfTomatoAndMushrooms(final List<String> strings){
 		for(String line : strings){
 			final char[] chars = line.toCharArray();
 			for(char value : chars){
@@ -47,8 +52,72 @@ public class PizzaMain {
 				}
 			}
 		}
-
-		numberOfSlices = Math.min(tomato, mushroom);
 	}
+
+	private static void defineNumberOfSlices(){
+		numberOfSlices = rows * columns / maxCellsPerSlice;
+		if(numberOfSlices % 10 > 0){
+			++numberOfSlices;
+		}
+	}
+
+	private static void createMatrix(List<String> strings){
+		String[] values = new String[strings.size()];
+		values = strings.toArray(values);
+		matrix = new char[rows][columns];
+		for(int i = 0; i < matrix.length; i++){
+			final char[] chars = values[i].toCharArray();
+			for(int j = 0; j < chars.length; j++){
+				matrix[i][j] = chars[j];
+			}
+		}
+	}
+
+	private static void cutPizza(){
+		List<char[][]> result = new ArrayList<>();
+		char[][] slice = new char[1][maxCellsPerSlice];
+		int sliceSize = 0;
+		char[][] copyMatrix = matrix;
+
+		int i = 0;
+		int j = 0;
+		boolean isWasAnotherIngredient = false;
+		for(; i < matrix.length;){
+			char searchIngredient = matrix[i][j] == 'M' ? 'T' : 'M';
+			for(; j < matrix[i].length; ) {
+				if(sliceSize < maxCellsPerSlice) {
+					if(searchIngredient == matrix[i][j]){
+						isWasAnotherIngredient = true;
+					}
+					slice[0][sliceSize] = matrix[i][j];
+					if(sliceSize >= maxCellsPerSlice && !isWasAnotherIngredient){
+						slice = new char[1][maxCellsPerSlice];
+					}
+					sliceSize++;
+					i++;
+				}else{
+					i = 0;
+					j++;
+					sliceSize = 0;
+					result.add(slice);
+					slice = new char[1][maxCellsPerSlice];
+				}
+			}
+
+		}
+	}
+
+	public boolean isRightSlice(int i, int j){
+		char[][] tempSlice = new char[1][maxCellsPerSlice];
+		for(;i < matrix.length; i++){
+			for(;j < matrix[i].length; j++) {
+
+			}
+
+		}
+		return false;
+	}
+
+
 
 }
