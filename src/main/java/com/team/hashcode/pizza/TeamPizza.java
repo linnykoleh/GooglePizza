@@ -22,10 +22,32 @@ public class TeamPizza {
 
         Pizza pizza = new Pizza(matrix, maxCellsPerSlice, minEachIngredient);
         pizza.cutPizza();
-        List<Slice> slices = pizza.getSlices();
 
-        slices.forEach(System.out::println);
+        printSlices(pizza);
+        printSlicesOnMatrix(pizza);
 
+    }
+
+    private static void printSlices(Pizza pizza){
+        System.out.println("");
+        final List<Slice> slices = pizza.getSlices();
+        int i = 1;
+        for (Slice slice: slices){
+            System.out.println(i++ + " " + slice);
+        }
+    }
+
+    private static void printSlicesOnMatrix(Pizza pizza){
+        System.out.println("");
+        System.out.println("Filled matrix (every slice has own number)");
+        System.out.println("");
+        final char[][] matrixCopy = pizza.getMatrixCopy();
+        for (char[] columns : matrixCopy){
+            for (char row : columns){
+                System.out.print(" " +row);
+            }
+            System.out.println();
+        }
     }
 
     private static void parseParams(String firstLine){

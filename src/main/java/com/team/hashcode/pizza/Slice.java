@@ -17,9 +17,8 @@ public class Slice {
         slicePositions[arraySize++] = value;
     }
 
-    public void clear(){
-        slicePositions = new char[sizeSlice];
-        arraySize = 0;
+    public int getArraySize(){
+        return arraySize;
     }
 
     @Override
