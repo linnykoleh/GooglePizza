@@ -26,12 +26,12 @@ public class Pizza {
         int r = 0;
         int c = 0;
         boolean isWasAnotherIngredient = false;
-        for(; c < columns; ) {
+        for(; c < columns; c++) {
 
             final Slice slice = new Slice(maxCellsPerSlice);
             char searchIngredient = matrix[r][c] == 'M' ? 'T' : 'M';
 
-            for(; r < row;){
+            for(; r < row; r++){
 
                 if(sliceSize < maxCellsPerSlice) {
                     if(searchIngredient == matrix[r][c]){
@@ -42,7 +42,6 @@ public class Pizza {
                         slice.clear();
                     }
                     sliceSize++;
-                    r++;
                 }else{
                     r = 0;
                     sliceSize = 0;
@@ -51,8 +50,6 @@ public class Pizza {
                 }
 
             }
-            c++;
-
         }
     }
 
