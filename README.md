@@ -4,12 +4,13 @@ Pizza
 Practice Problem for Hash Code 2017
 
 (Project contains all examples and description is pdf format)
-Introduction
+
+### Introduction
 Did you know that at any given time, someone is cutting pizza somewhere around the world? The decision
 about how to cut the pizza sometimes is easy, but sometimes it’s really hard: you want just the right amount
 of tomatoes and mushrooms on each slice. If only there was a way to solve this problem using technology...
 
-Problem description
+### Problem description
 
 Pizza
 The pizza is represented as a rectangular, 2-dimensional grid of R rows and C columns. The cells within the
@@ -33,7 +34,7 @@ Input data set
 The input data is provided as a data set file - a plain text file containing exclusively ASCII characters with
 lines terminated with a single ‘\n’ character at the end of each line (UNIX- style line endings).
 
-File format
+### File format
 The file consists of:
  - one line containing the following natural numbers separated by single spaces:
  - R (1 ≤ R ≤ 1000) is the number of rows
@@ -77,7 +78,7 @@ Example
 
 Slices described in the example submission file marked in green, orange and purple.
 
-Validation
+### Validation
 For the solution to be accepted:
 - the format of the file must match the description above,
 - each cell of the pizza must be included in at most one slice,
@@ -85,10 +86,10 @@ For the solution to be accepted:
 - each slice must contain at least L cells of tomato,
 - total area of each slice must be at most H
 
-Scoring
+### Scoring
 The submission gets a score equal to the total number of cells in all slices.
 Note that there are multiple data sets representing separate instances of the problem. The final
 score for your team is the sum of your best scores on the individual data sets.
 
-Scoring example
+### Scoring example
 The example submission file given above cuts the slices of 6, 3 and 6 cells, earning 6 + 3 + 6 = 15 points.
