@@ -20,7 +20,7 @@ public class TeamPizza {
         strings = strings.subList(1, strings.size());
         char[][] matrix = createMatrix(strings);
 
-        Pizza pizza = new Pizza(matrix, maxCellsPerSlice);
+        Pizza pizza = new Pizza(matrix, maxCellsPerSlice, minEachIngredient);
         pizza.cutPizza();
         List<Slice> slices = pizza.getSlices();
 
