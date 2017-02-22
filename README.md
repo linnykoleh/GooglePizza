@@ -3,6 +3,7 @@ Google hashcode task
 Pizza
 Practice Problem for Hash Code 2017
 
+(Project contains all examples and description is pdf format)
 Introduction
 Did you know that at any given time, someone is cutting pizza somewhere around the world? The decision
 about how to cut the pizza sometimes is easy, but sometimes it’s really hard: you want just the right amount
