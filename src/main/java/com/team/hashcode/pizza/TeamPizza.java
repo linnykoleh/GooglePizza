@@ -3,6 +3,7 @@ package com.team.hashcode.pizza;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class TeamPizza {
 
@@ -14,7 +15,8 @@ public class TeamPizza {
     private static int maxCellsPerSlice;
 
     public static void main(String[] args) throws Exception {
-        List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("small.in").toURI()));
+        final String file = defineFileName();
+        List<String> strings = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(file).toURI()));
         parseParams(strings.get(NUMBER_PARAM_LINE));
 
         strings = strings.subList(1, strings.size());
@@ -28,6 +30,18 @@ public class TeamPizza {
 
     }
 
+    private static String defineFileName(){
+        System.out.println("Which size of Pizza? (s, m, b)");
+        final Scanner scan = new Scanner(System.in);
+        final String size = scan.next();
+        if(size.equalsIgnoreCase("m")){
+            return "medium.in";
+        }else if(size.equalsIgnoreCase("b")) {
+            return "big.in";
+        }
+        return "small.in";
+    }
+
     private static void printSlices(Pizza pizza){
         System.out.println("");
         final List<Slice> slices = pizza.getSlices();
@@ -39,7 +53,7 @@ public class TeamPizza {
 
     private static void printSlicesOnMatrix(Pizza pizza){
         System.out.println("");
-        System.out.println("Filled matrix (every slice has own number)");
+        System.out.println("Filled matrix");
         System.out.println("");
         final char[][] matrixCopy = pizza.getMatrixCopy();
         for (char[] columns : matrixCopy){
