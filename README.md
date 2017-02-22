@@ -16,7 +16,7 @@ grid are referenced using a pair of 0-based coordinates [r, c] , denoting respec
 column of the cell.
 
 Each cell of the pizza contains either:
- - mushroom, represented in the input file as M ; or
+ - mushroom, represented in the input file as M 
  - tomato, represented in the input file as T
  
 Slice
@@ -35,12 +35,12 @@ lines terminated with a single ‘\n’ character at the end of each line (UNIX-
 File format
 The file consists of:
  - one line containing the following natural numbers separated by single spaces:
- - R (1 ≤ R ≤ 1000) is the number of rows,
- - C (1 ≤ C ≤ 1000) is the number of columns,
- - L (1 ≤ L ≤ 1000) is the minimum number of each ingredient cells in a slice,
+ - R (1 ≤ R ≤ 1000) is the number of rows
+ - C (1 ≤ C ≤ 1000) is the number of columns
+ - L (1 ≤ L ≤ 1000) is the minimum number of each ingredient cells in a slice
  - H (1 ≤ H ≤ 1000) is the maximum total number of cells of a slice
  
- Google 2017, All rights reserved.
+Google 2017, All rights reserved.
  
 R lines describing the rows of the pizza (one after another). Each of these lines contains C
 characters describing the ingredients in the cells of the row (one cell after another). Each character
@@ -57,14 +57,9 @@ Example input file.
 Submissions
 File format
 The file must consist of:
-- one line containing a single natural number S (0 ≤ S ≤ R × C) , representing the total number of
-slices to be cut,
--  U lines describing the slices. Each of these lines must contain the following natural numbers
-separated by single spaces:
--  r 1 , c 1 , r 2 , c 2 describe a slice of pizza delimited by the rows r (0 ≤ r1,r2 < R, 0 ≤ c1, c2 < C) 1 and
-r 2 and the columns c 1 and c 2 , including the cells of the delimiting rows and columns. The
-rows ( r 1 and r 2 ) can be given in any order. The columns ( c 1 and c 2 ) can be given in any order too.
-
+- one line containing a single natural number S (0 ≤ S ≤ R × C) , representing the total number of slices to be cut,
+- U lines describing the slices. Each of these lines must contain the following natural numbers separated by single spaces:
+-  r 1 , c 1 , r 2 , c 2 describe a slice of pizza delimited by the rows r (0 ≤ r1,r2 < R, 0 ≤ c1, c2 < C) 1 and r 2 and the columns c 1 and c 2 , including the cells of the delimiting rows and columns. The rows ( r 1 and r 2 ) can be given in any order. The columns ( c 1 and c 2 ) can be given in any order too.
 
 Example
 3
@@ -72,10 +67,10 @@ Example
 0 2 2 2
 0 3 2 4
 3 slices.
-First slice between rows (0,2) and columns (0,1).
-Second slice between rows (0,2) and columns (2,2).
-Third slice between rows (0,2) and columns (3,4).
-Example submission file.
+- First slice between rows (0,2) and columns (0,1).
+- Second slice between rows (0,2) and columns (2,2).
+- Third slice between rows (0,2) and columns (3,4).
+- Example submission file.
 
 © Google 2017, All rights reserved.
 
