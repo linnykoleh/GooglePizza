@@ -1,15 +1,11 @@
 package com.team.hashcode.pizza;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
-
-import sun.misc.IOUtils;
 
 public class TeamPizza {
 
@@ -33,9 +29,9 @@ public class TeamPizza {
 
 
         printPizzaInfoInFile(pizza, file);
-        //        printSlices(pizza);
-        //        printPizzaInfo(pizza);
-        //        printSlicesOnMatrix(pizza);
+        printSlices(pizza);
+        printPizzaInfo(pizza);
+        printSlicesOnMatrix(pizza);
 
     }
 
@@ -47,7 +43,7 @@ public class TeamPizza {
             writer.write("" + slices.size());
             for (Slice slice: slices){
                 writer.newLine();
-                writer.write(slice.getRowFirst() + " " + slice.getRowLast() + " " + slice.getColumnsFirst() + " " + slice.getColumnsLast());
+                writer.write(slice.getRowFirst() + " " + slice.getColumnsFirst() + " " + slice.getRowLast() + " " + slice.getColumnsLast());
             }
         }
     }
@@ -57,7 +53,7 @@ public class TeamPizza {
         final List<Slice> slices = pizza.getSlices();
         System.out.println(slices.size());
         for (Slice slice: slices){
-            System.out.println(slice.getRowFirst() + " " + slice.getRowLast() + " " + slice.getColumnsFirst() + " " + slice.getColumnsLast());
+            System.out.println(slice.getRowFirst() + " " + slice.getColumnsFirst() + " " + slice.getRowLast() + " " + slice.getColumnsLast());
         }
     }
 
@@ -113,9 +109,7 @@ public class TeamPizza {
         final char[][] matrix = new char[rows][columns];
         for(int i = 0; i < matrix.length; i++){
             final char[] chars = values[i].toCharArray();
-            for(int j = 0; j < chars.length; j++){
-                matrix[i][j] = chars[j];
-            }
+            System.arraycopy(chars, 0, matrix[i], 0, chars.length);
         }
         return matrix;
     }
