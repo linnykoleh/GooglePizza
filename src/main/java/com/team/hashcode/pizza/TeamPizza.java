@@ -28,7 +28,7 @@ public class TeamPizza {
 
         printSlices(pizza);
         printPizzaInfo(pizza);
-//        printSlicesOnMatrix(pizza);
+        printSlicesOnMatrix(pizza);
 
     }
 
@@ -37,7 +37,7 @@ public class TeamPizza {
         final List<Slice> slices = pizza.getSlices();
         System.out.println(slices.size());
         for (Slice slice: slices){
-            System.out.println(slice.getRowFirst() + " " + slice.getColumnsFirst() + " " + slice.getRowLast() + " " + slice.getColumnsLast());
+            System.out.println(slice.getRowFirst() + " " + slice.getRowLast() + " " + slice.getColumnsFirst() + " " + slice.getColumnsLast());
         }
     }
 

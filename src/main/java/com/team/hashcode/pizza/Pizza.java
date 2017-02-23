@@ -85,7 +85,7 @@ public class Pizza {
 		for(; c < columns; c++) {
 			char ingredient = matrix[r][c];
 			if(sliceSize <= maxCellsPerSlice) {
-				if(!isEnoughIngredient && isEnoughtMinEachIngredient(array, ingredient)){
+				if(!isEnoughIngredient && isEnoughMinEachIngredient(array, ingredient)){
 					isEnoughIngredient = true;
 				}
 				if(sliceSize >= maxCellsPerSlice && !isEnoughIngredient)
@@ -139,7 +139,7 @@ public class Pizza {
 				for (; r < rows; r++) {
 					char ingredient = matrix[r][c];
 					if (sliceSize < maxCellsPerSlice) {
-						if(!isEnoughIngredient && isEnoughtMinEachIngredient(array, ingredient)){
+						if(!isEnoughIngredient && isEnoughMinEachIngredient(array, ingredient)){
 							isEnoughIngredient = true;
 						}
 						if (sliceSize >= maxCellsPerSlice && !isEnoughIngredient)
@@ -158,7 +158,7 @@ public class Pizza {
 		return false;
 	}
 
-	private boolean isEnoughtMinEachIngredient(int[] array, char ingredient){
+	private boolean isEnoughMinEachIngredient(int[] array, char ingredient){
 		final int tomats = array[0];
 		final int mushrooms = array[1];
 		if('T' == ingredient){
@@ -166,7 +166,7 @@ public class Pizza {
 		}else if('M' == ingredient){
 			array[1] = mushrooms + 1;
 		}
-		return array[0] == minEachIngredient && array[1] == minEachIngredient;
+		return array[0] >= minEachIngredient && array[1] >= minEachIngredient;
 	}
 
     public List<Slice> getSlices(){
