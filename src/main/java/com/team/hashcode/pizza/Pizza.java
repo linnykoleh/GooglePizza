@@ -5,10 +5,10 @@ import java.util.List;
 
 /**
  *
- * 1. Save slice only after checking valid slice, what I mean :
+ * 1. Save slice only after checking valid slice, what I mean :    #
  *           - size <= maxCellsPerSlice                            #
  *           - not cover already defined slices                    #
- *           - slice contain minEachIngredient per slice
+ *           - slice contain minEachIngredient per slice           #
  * 2. Mark slice's coordinates in matrixCopy as number of slice in order to avoid covering #
  * 3. Keep in mind even and odd numbers in slice
  *
@@ -69,7 +69,7 @@ public class Pizza {
 		final Slice slice = new Slice(maxCellsPerSlice);
 		for(int c1 = c; c1 < columns; c1++) {
 			if(slice.getArraySize() < maxCellsPerSlice) {
-				slice.addIngredient(matrix[r][c1]);
+				slice.addIngredient(matrix[r][c1], r, c1);
 				matrixCopy[r][c1] = '*';
 			}else{
 				break;
@@ -80,13 +80,15 @@ public class Pizza {
 
 	private boolean isCorrectSliceByColumns(int c, int r){
 		int sliceSize = 1;
-		boolean isWasAnotherIngredient = false;
-		char searchIngredient = matrix[r][c] == 'M' ? 'T' : 'M';
+		boolean isEnoughIngredient = false;
+		int[] array = new int[2];
 		for(; c < columns; c++) {
+			char ingredient = matrix[r][c];
 			if(sliceSize <= maxCellsPerSlice) {
-				if(searchIngredient == matrix[r][c])
-					isWasAnotherIngredient = true;
-				if(sliceSize >= maxCellsPerSlice && !isWasAnotherIngredient)
+				if(!isEnoughIngredient && isEnoughtMinEachIngredient(array, ingredient)){
+					isEnoughIngredient = true;
+				}
+				if(sliceSize >= maxCellsPerSlice && !isEnoughIngredient)
 					return false;
 				if('*' == matrixCopy[r][c])
 					return false;
@@ -117,7 +119,7 @@ public class Pizza {
 			final Slice slice = new Slice(maxCellsPerSlice);
 			for(int r1 = r; r1 < rows; r1++) {
 				if(slice.getArraySize() < maxCellsPerSlice) {
-					slice.addIngredient(matrix[r1][c1]);
+					slice.addIngredient(matrix[r1][c1], r1, c1);
 					matrixCopy[r1][c1] = '*';
 				}else{
 					c1++;
@@ -130,15 +132,17 @@ public class Pizza {
 
 	private boolean isCorrectSlice(int c, int r){
 		int sliceSize = 0;
-		boolean isWasAnotherIngredient = false;
+		boolean isEnoughIngredient = false;
 		for(; c < columns; c++) {
 			if(r < matrix.length - 1 && c < matrix[0].length - 1) {
-				char searchIngredient = matrix[r][c] == 'M' ? 'T' : 'M';
+				int[] array = new int[2];
 				for (; r < rows; r++) {
+					char ingredient = matrix[r][c];
 					if (sliceSize < maxCellsPerSlice) {
-						if (searchIngredient == matrix[r][c])
-							isWasAnotherIngredient = true;
-						if (sliceSize >= maxCellsPerSlice && !isWasAnotherIngredient)
+						if(!isEnoughIngredient && isEnoughtMinEachIngredient(array, ingredient)){
+							isEnoughIngredient = true;
+						}
+						if (sliceSize >= maxCellsPerSlice && !isEnoughIngredient)
 							return false;
 						if ('*' == matrixCopy[r][c])
 							return false;
@@ -152,6 +156,17 @@ public class Pizza {
 			}
 		}
 		return false;
+	}
+
+	private boolean isEnoughtMinEachIngredient(int[] array, char ingredient){
+		final int tomats = array[0];
+		final int mushrooms = array[1];
+		if('T' == ingredient){
+			array[0] = tomats + 1;
+		}else if('M' == ingredient){
+			array[1] = mushrooms + 1;
+		}
+		return array[0] == minEachIngredient && array[1] == minEachIngredient;
 	}
 
     public List<Slice> getSlices(){

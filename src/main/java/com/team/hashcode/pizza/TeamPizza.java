@@ -25,13 +25,24 @@ public class TeamPizza {
         Pizza pizza = new Pizza(matrix, maxCellsPerSlice, minEachIngredient);
         pizza.cutPizza();
 
+
         printSlices(pizza);
-        printSlicesOnMatrix(pizza);
+        printPizzaInfo(pizza);
+//        printSlicesOnMatrix(pizza);
 
     }
 
+    private static void printPizzaInfo(Pizza pizza){
+        System.out.println("");
+        final List<Slice> slices = pizza.getSlices();
+        System.out.println(slices.size());
+        for (Slice slice: slices){
+            System.out.println(slice.getRowFirst() + " " + slice.getColumnsFirst() + " " + slice.getRowLast() + " " + slice.getColumnsLast());
+        }
+    }
+
     private static String defineFileName(){
-        System.out.println("Which size of Pizza? (s, m, b)");
+        System.out.println("Which size of pizza do you prefer? (s, m, b)");
         final Scanner scan = new Scanner(System.in);
         final String size = scan.next();
         if(size.equalsIgnoreCase("m")){
