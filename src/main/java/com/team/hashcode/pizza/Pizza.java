@@ -43,23 +43,37 @@ public class Pizza {
         for(; c < columns; c++) {
             for(; r < rows; r++){
                 if(isCorrectSlice(c, r)) {
-					fillSliceAndMatrixCopy(c, r);
+					createSlices(c, r);
                 }else{
-					final int[] bestPositions = findBestPositions();
-					fillSliceAndMatrixCopyByBestPositions(bestPositions);
+					final BestPosition bestPosition = new BestPosition(rows, columns, matrixCopy);
+					createSlicesByBestPositions(bestPosition.getBestRow(), bestPosition.getBestColumn());
 				}
             }
         }
 	}
 
-	private void fillSliceAndMatrixCopyByBestPositions(int[] bestPositions){
-		int r = bestPositions[0];
-		int c = bestPositions[1];
-		int rows = r + 1;
+	private void createSlices(int c, int r){
+		for(int c1 = c; c1 < columns; ) {
+			final Slice slice = new Slice(maxCellsPerSlice);
+			for(int r1 = r; r1 < rows; r1++) {
+				if(slice.getArraySize() < maxCellsPerSlice) {
+					slice.addIngredient(matrix[r1][c1], r1, c1);
+					matrixCopy[r1][c1] = '*';
+				}else{
+					c1++;
+					slices.add(slice);
+					break;
+				}
+			}
+		}
+	}
+
+	private void createSlicesByBestPositions(int bestRow, int bestColumn){
+		int rows = bestRow + 1;
 		if(rows == this.rows){             // then it bottom
-			for(; c < columns; c++) {
-				if(isCorrectSliceByColumns(c, r)){
-					fillSliceAndMatrixCopyByColumns(c, r);
+			for(; bestColumn < columns; bestColumn++) {
+				if(isCorrectSliceByColumns(bestColumn, bestRow)){
+					fillSliceAndMatrixCopyByColumns(bestColumn, bestRow);
 				}
 			}
 		}
@@ -78,68 +92,16 @@ public class Pizza {
 		slices.add(slice);
 	}
 
-	private boolean isCorrectSliceByColumns(int c, int r){
-		int sliceSize = 1;
-		boolean isEnoughIngredient = false;
-		int[] array = new int[2];
-		for(; c < columns; c++) {
-			char ingredient = matrix[r][c];
-			if(sliceSize <= maxCellsPerSlice) {
-				if(!isEnoughIngredient && isEnoughMinEachIngredient(array, ingredient)){
-					isEnoughIngredient = true;
-				}
-				if(sliceSize >= maxCellsPerSlice && !isEnoughIngredient)
-					return false;
-				if('*' == matrixCopy[r][c])
-					return false;
-				sliceSize++;
-			}else {
-				return true;
-			}
-		}
-		return true;
-	}
-
-	private int[] findBestPositions(){
-    	int [] position = new int[2];
-		for(int c = 0; c < columns; c++) {
-			for (int r = 0; r < rows; r++) {
-				if('*' != matrixCopy[r][c]){
-					position[0] = r;
-					position[1] = c;
-					return position;
-				}
-			}
-		}
-		return position;
-	}
-
-	private void fillSliceAndMatrixCopy(int c, int r){
-		for(int c1 = c; c1 < columns; ) {
-			final Slice slice = new Slice(maxCellsPerSlice);
-			for(int r1 = r; r1 < rows; r1++) {
-				if(slice.getArraySize() < maxCellsPerSlice) {
-					slice.addIngredient(matrix[r1][c1], r1, c1);
-					matrixCopy[r1][c1] = '*';
-				}else{
-					c1++;
-					slices.add(slice);
-					break;
-				}
-			}
-		}
-	}
-
 	private boolean isCorrectSlice(int c, int r){
 		int sliceSize = 0;
 		boolean isEnoughIngredient = false;
+		final MinEachIngredient eachIngredient = new MinEachIngredient(minEachIngredient);
 		for(; c < columns; c++) {
 			if(r < matrix.length - 1 && c < matrix[0].length - 1) {
-				int[] array = new int[2];
 				for (; r < rows; r++) {
 					char ingredient = matrix[r][c];
 					if (sliceSize < maxCellsPerSlice) {
-						if(!isEnoughIngredient && isEnoughMinEachIngredient(array, ingredient)){
+						if(eachIngredient.isEnough(ingredient)){
 							isEnoughIngredient = true;
 						}
 						if (sliceSize >= maxCellsPerSlice && !isEnoughIngredient)
@@ -158,15 +120,26 @@ public class Pizza {
 		return false;
 	}
 
-	private boolean isEnoughMinEachIngredient(int[] array, char ingredient){
-		final int tomats = array[0];
-		final int mushrooms = array[1];
-		if('T' == ingredient){
-			array[0] = tomats + 1;
-		}else if('M' == ingredient){
-			array[1] = mushrooms + 1;
+	private boolean isCorrectSliceByColumns(int c, int r){
+		int sliceSize = 1;
+		boolean isEnoughIngredient = false;
+		final MinEachIngredient eachIngredient = new MinEachIngredient(minEachIngredient);
+		for(; c < columns; c++) {
+			char ingredient = matrix[r][c];
+			if(sliceSize <= maxCellsPerSlice) {
+				if(eachIngredient.isEnough(ingredient)){
+					isEnoughIngredient = true;
+				}
+				if(sliceSize >= maxCellsPerSlice && !isEnoughIngredient)
+					return false;
+				if('*' == matrixCopy[r][c])
+					return false;
+				sliceSize++;
+			}else {
+				return true;
+			}
 		}
-		return array[0] >= minEachIngredient && array[1] >= minEachIngredient;
+		return true;
 	}
 
     public List<Slice> getSlices(){

@@ -1,9 +1,15 @@
 package com.team.hashcode.pizza;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
+
+import sun.misc.IOUtils;
 
 public class TeamPizza {
 
@@ -26,10 +32,24 @@ public class TeamPizza {
         pizza.cutPizza();
 
 
-        printSlices(pizza);
-        printPizzaInfo(pizza);
-        printSlicesOnMatrix(pizza);
+        printPizzaInfoInFile(pizza, file);
+        //        printSlices(pizza);
+        //        printPizzaInfo(pizza);
+        //        printSlicesOnMatrix(pizza);
 
+    }
+
+    private static void printPizzaInfoInFile(Pizza pizza, String fileName) throws IOException {
+        System.out.println("Writing to file: " + fileName);
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("result/" + fileName))) {
+            final List<Slice> slices = pizza.getSlices();
+            writer.newLine();
+            writer.write("" + slices.size());
+            for (Slice slice: slices){
+                writer.newLine();
+                writer.write(slice.getRowFirst() + " " + slice.getRowLast() + " " + slice.getColumnsFirst() + " " + slice.getColumnsLast());
+            }
+        }
     }
 
     private static void printPizzaInfo(Pizza pizza){
