@@ -36,6 +36,7 @@ public class TeamPizza {
 
 	private static void printPizzaInfoInFile(Pizza pizza, String fileName) throws IOException {
 		System.out.println("Writing to file: " + fileName);
+		System.out.println("Pizza");
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("result/" + fileName))) {
 			final List<Slice> slices = pizza.getSlices();
 			writer.newLine();
@@ -48,7 +49,7 @@ public class TeamPizza {
 	}
 
 	private static void printPizzaInfo(Pizza pizza) {
-		System.out.println("");
+		System.out.println();
 		final List<Slice> slices = pizza.getSlices();
 		System.out.println(slices.size());
 		for (Slice slice : slices) {
@@ -69,7 +70,7 @@ public class TeamPizza {
 	}
 
 	private static void printSlices(Pizza pizza) {
-		System.out.println("");
+		System.out.println("Slices");
 		final List<Slice> slices = pizza.getSlices();
 		int i = 1;
 		for (Slice slice : slices) {
@@ -78,9 +79,9 @@ public class TeamPizza {
 	}
 
 	private static void printSlicesOnMatrix(Pizza pizza) {
-		System.out.println("");
+		System.out.println();
 		System.out.println("Filled matrix");
-		System.out.println("");
+		System.out.println();
 		final char[][] matrixCopy = pizza.getMatrixCopy();
 		for (char[] columns : matrixCopy) {
 			for (char row : columns) {
