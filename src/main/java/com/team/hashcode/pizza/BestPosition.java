@@ -16,10 +16,11 @@ public class BestPosition {
 		findBestPositions();
 	}
 
-	private void findBestPositions(){
-		finish : for(int c = 0; c < columns; c++) {
+	private void findBestPositions() {
+		finish:
+		for (int c = 0; c < columns; c++) {
 			for (int r = 0; r < rows; r++) {
-				if('*' != matrixCopy[r][c]){
+				if ('*' != matrixCopy[r][c]) {
 					bestRow = r;
 					bestColumn = c;
 					break finish;
